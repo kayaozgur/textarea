@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <textarea id="ta" rows="14" cols="100"></textarea>
+    <button id="btn">Giriş</button>
+    <br><br>
+
+    <table id="table" border="1"></table>
+
+    <script>
+
+        const table = document.getElementById("table");
+        const textarea = document.getElementById("ta");
+        const buton = document.getElementById("btn");
+        let metin = "";
+        let liste = "";
+        let yeni_liste = [];
+
+        textarea.addEventListener("input", function () {
+
+            metin = textarea.value;
+            liste = metin.split("\n");
+            
+
+
+           if(liste.length > 0){
+
+            for (let i = 0; i < liste.length; i++) {
+                const element = liste[i].split("\t");
+                if (liste[i].length > 1) {
+                    yeni_liste.push(element);
+
+                }
+            }
+
+            console.log(yeni_liste);
+
+            let row="";
+            for (let r = 0; r < yeni_liste.length; r++) {
+                row +="<tr>"
+                for(let c = 0; c <yeni_liste[r].length; c++) {
+                    row += "<td>"+yeni_liste[r][c]+"</td>"
+                }
+            row+="</tr>" 
+            table.innerHTML=row;
+            }
+
+            textarea.value = "";
+           }
+            
+            
+        });
+
+
+        
+
+
+    </script>
+</body>
+
+</html>
