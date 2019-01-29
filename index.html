@@ -24,8 +24,8 @@
         let liste = "";
         let yeni_liste = [];
 
-        buton.addEventListener("click", function() {
-            table.innerHTML="";
+        buton.addEventListener("click", function () {
+            table.innerHTML = "";
             yeni_liste = [];
         })
 
@@ -33,39 +33,42 @@
 
             metin = textarea.value;
             liste = metin.split("\n");
-            
-            
 
-           if(liste.length > 0){
 
-            for (let i = 0; i < liste.length; i++) {
-                const element = liste[i].split("\t");
-                if (liste[i].length > 1) {
-                    yeni_liste.push(element);
 
+            if (liste.length > 0) {
+
+                for (let i = 0; i < liste.length; i++) {
+                    const element = liste[i].split("\t");
+                    if (liste[i].length > 1) {
+                        yeni_liste.push(element);
+
+                    }
                 }
+
+                console.log(yeni_liste);
+
+                let row = "";
+                for (let r = 0; r < yeni_liste.length; r++) {
+                    row += "<tr><td><button id='sil' onclick='sil(this)'>Sil</button></td>"
+                    for (let c = 0; c < yeni_liste[r].length; c++) {
+                        row += "<td>" + yeni_liste[r][c] + "</td>"
+                    }
+                    row += "<td><input type='text'/></td></tr>"
+                    table.innerHTML = row;
+                }
+
+                textarea.value = "";
             }
 
-            console.log(yeni_liste);
 
-            let row="";
-            for (let r = 0; r < yeni_liste.length; r++) {
-                row +="<tr><td><button>Sil</button></td>"
-                for(let c = 0; c <yeni_liste[r].length; c++) {
-                    row += "<td>"+yeni_liste[r][c]+"</td>"
-                }
-            row+="<td><input type='text'/></td></tr>" 
-            table.innerHTML=row;
-            }
-
-            textarea.value = "";
-           }
-            
-            
         });
 
+        function sil(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            table.deleteRow(i);
+        }
 
-        
 
 
     </script>
