@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <textarea id="ta" rows="14" cols="100"></textarea>
-    <button id="btn">Giriş</button>
+    <textarea id="ta" rows="7" cols="50" autofocus placeholder="Bilgileri Kopyalayıp bu Alana Yapıştırın."></textarea>
+    <button id="btn">Temizle</button>
     <br><br>
 
     <table id="table" border="1"></table>
@@ -24,12 +24,17 @@
         let liste = "";
         let yeni_liste = [];
 
+        buton.addEventListener("click", function() {
+            table.innerHTML="";
+            yeni_liste = [];
+        })
+
         textarea.addEventListener("input", function () {
 
             metin = textarea.value;
             liste = metin.split("\n");
             
-
+            
 
            if(liste.length > 0){
 
@@ -45,11 +50,11 @@
 
             let row="";
             for (let r = 0; r < yeni_liste.length; r++) {
-                row +="<tr>"
+                row +="<tr><td><button>Sil</button></td>"
                 for(let c = 0; c <yeni_liste[r].length; c++) {
                     row += "<td>"+yeni_liste[r][c]+"</td>"
                 }
-            row+="</tr>" 
+            row+="<td><input type='text'/></td></tr>" 
             table.innerHTML=row;
             }
 
