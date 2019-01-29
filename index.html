@@ -6,15 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <style>
+        .column_3,
+        .column_0 {
+            text-align: center;
+        }
+
+        th {
+            text-align: center;
+        }
+
+        .table tr td {
+            padding: 5px;
+        }
+
+        textarea {
+            width: 90%;
+        }
+        .btn-success { margin-right: 5px;}
+        
+        .row, .col {
+            padding: 5px;
+            margin: 5px;
+        }
+    </style>
+
 </head>
 
 <body>
-    <textarea id="ta" rows="7" cols="50" autofocus placeholder="Bilgileri Kopyalayıp bu Alana Yapıştırın."></textarea>
-    <button id="btn">Temizle</button>
-    <br><br>
+    <div class="col">
+        <div class="row">
+            <button id="btn" class="btn btn-success">Temizle</button>
+            <textarea id="ta" rows="4" autofocus placeholder="Bilgileri Kopyalayıp bu Alana Yapıştırın."></textarea>
+        </div>
 
-    <table id="table" border="1"></table>
-
+        <div class="rov">
+            <table id="table" class="table table-striped " border="1"></table>
+        </div>
+    </div>
     <script>
 
         const table = document.getElementById("table");
@@ -48,13 +80,28 @@
 
                 console.log(yeni_liste);
 
-                let row = "";
+                let row = "<thead><tr><th scope='col'>---</th><th scope='col'>ÜRÜN KODU</th><th scope='col'>ÜRÜN ADI</th><th scope='col'>SATIŞ ADEDİ</th><th scope='col'>HEDEF STOK</th></tr></thead>";
                 for (let r = 0; r < yeni_liste.length; r++) {
-                    row += "<tr><td><button id='sil' onclick='sil(this)'>Sil</button></td>"
+
+                    row += "<tr><td class='column_0'><button class='sil btn btn-danger btn-sm' onclick='sil(this)'>Sil</button></td>"
                     for (let c = 0; c < yeni_liste[r].length; c++) {
-                        row += "<td>" + yeni_liste[r][c] + "</td>"
+
+                        switch (c) {
+                            case 0:
+                                row += "<td class='column_1'>" + yeni_liste[r][c] + "</td>"
+                                break;
+                            case 1:
+                                row += "<td class='column_2'>" + yeni_liste[r][c] + "</td>"
+                                break;
+                            case 2:
+                                row += "<td class='column_3'>" + yeni_liste[r][c] + "</td>"
+                                break;
+                            default:
+                            // code block
+                        }
+
                     }
-                    row += "<td><input type='text'/></td></tr>"
+                    row += "<td><input class='input-group-text' type='text'/></td></tr>"
                     table.innerHTML = row;
                 }
 
