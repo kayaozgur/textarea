@@ -20,15 +20,19 @@
         }
 
         .table tr td {
-            padding: 5px;
+            padding: 2px;
         }
 
         textarea {
             width: 90%;
         }
-        .btn-success { margin-right: 5px;}
-        
-        .row, .col {
+
+        .btn-success {
+            margin-right: 5px;
+        }
+
+        .row,
+        .col {
             padding: 5px;
             margin: 5px;
         }
@@ -49,12 +53,12 @@
     </div>
     <script>
 
-        const table = document.getElementById("table");
-        const textarea = document.getElementById("ta");
-        const buton = document.getElementById("btn");
-        let metin = "";
-        let liste = "";
-        let yeni_liste = [];
+        var table = document.getElementById("table");
+        var textarea = document.getElementById("ta");
+        var buton = document.getElementById("btn");
+        var metin = "";
+        var liste = "";
+        var yeni_liste = [];
 
         buton.addEventListener("click", function () {
             table.innerHTML = "";
@@ -70,8 +74,8 @@
 
             if (liste.length > 0) {
 
-                for (let i = 0; i < liste.length; i++) {
-                    const element = liste[i].split("\t");
+                for (var i = 0; i < liste.length; i++) {
+                    var element = liste[i].split("\t");
                     if (liste[i].length > 1) {
                         yeni_liste.push(element);
 
@@ -80,11 +84,11 @@
 
                 console.log(yeni_liste);
 
-                let row = "<thead><tr><th scope='col'>---</th><th scope='col'>ÜRÜN KODU</th><th scope='col'>ÜRÜN ADI</th><th scope='col'>SATIŞ ADEDİ</th><th scope='col'>HEDEF STOK</th></tr></thead>";
-                for (let r = 0; r < yeni_liste.length; r++) {
+                var row = "<thead><tr><th scope='col'>---</th><th scope='col'>ÜRÜN KODU</th><th scope='col'>ÜRÜN ADI</th><th scope='col'>SATIŞ ADEDİ</th><th scope='col'>HEDEF STOK</th></tr></thead>";
+                for (var r = 0; r < yeni_liste.length; r++) {
 
-                    row += "<tr><td class='column_0'><button class='sil btn btn-danger btn-sm' onclick='sil(this)'>Sil</button></td>"
-                    for (let c = 0; c < yeni_liste[r].length; c++) {
+                    row += "<tr><td class='column_0' align='center'><button class='sil btn btn-danger btn-sm' onclick='sil(this)'>Sil</button></td>"
+                    for (var c = 0; c < yeni_liste[r].length; c++) {
 
                         switch (c) {
                             case 0:
@@ -101,15 +105,30 @@
                         }
 
                     }
-                    row += "<td><input class='input-group-text' type='text'/></td></tr>"
+                    row += "<td align='center'><input class='input-group-text' type='text' size='5' onkeyup='hesapla(this)' /></td></tr>"
                     table.innerHTML = row;
                 }
 
                 textarea.value = "";
+
             }
 
 
         });
+
+        function hesapla(x) {
+            var row_Index = x.parentNode.parentNode.rowIndex;
+            var satis_adedi = table.rows[row_Index].cells[3].innerHTML;
+            var hedef_stok = x.value;
+            var katsayi = hedef_stok / satis_adedi;
+
+
+            for (var r = 0, n = table.rows.length; r < n; r++) {
+
+                table.rows[r].cells[4].childNodes[0].value = Math.round(table.rows[r].cells[3].innerHTML * katsayi);
+
+            }
+        }
 
         function sil(r) {
             var i = r.parentNode.parentNode.rowIndex;
